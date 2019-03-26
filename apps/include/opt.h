@@ -270,10 +270,32 @@ typedef struct options_st {
     const char *name;
     int retval;
     /*
-     * value type: - no value (also the value zero), n number, p positive
-     * number, u unsigned, l long, s string, < input file, > output file,
-     * f any format, F der/pem format, E der/pem/engine format identifier.
-     * l, n and u include zero; p does not.
+     * value type:
+     *
+     *   '-' no value (also the value zero)
+     *   'n' number (of type type 'int')
+     *   'p' positive number
+     *   'u' unsigned
+     *   'l' long
+     *   's' string
+     *   '<' input file
+     *   '>' output file
+     *   '/' directory
+     *   'f' any format
+     *   'F' der/pem format
+     *   'E' der/pem/engine format identifier
+
+     *   'M'
+     *   'U'
+     *   'c'
+
+        case   0: case '-': case '/': case '<': case '>': case 'E': case 'F':
+        case 'M': case 'U': case 'f': case 'l': case 'n': case 'p': case 's':
+        case 'u': case 'c': case 'A':
+
+     *
+     * The 'l', 'n' and 'u' value types include the values zero,
+     * the 'p' value type does not.
      */
     int valtype;
     const char *helpstr;
