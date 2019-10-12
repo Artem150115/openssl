@@ -25,7 +25,6 @@
 /include/openssl/configuration.h
 /include/openssl/opensslv.h
 
-# Auto generated doc files
 doc/man1/openssl-ca.pod
 doc/man1/openssl-cms.pod
 doc/man1/openssl-crl.pod
