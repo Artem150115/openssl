@@ -1,3 +1,4 @@
+
 Build and Install
 =================
 
@@ -32,9 +33,13 @@ Table of Contents
     - [Environment Variables](#environment-variables)
     - [Makefile Targets](#makefile-targets)
     - [Running Selected Tests](#running-selected-tests)
- - [Notes](#notest)
+ - [Troubleshooting](#troubleshooting)
+    - [Configuration Problems](#configuration-problems)
+    - [Build Failures](#build-failures)
+    - [Test Failures](#test-failures)
+ - [Notes](#notes)
     - [Notes on multi-threading](#notes-on-multi-threading)
-	- [Notes on shared libraries](#notes-on-shared-libraries)
+    - [Notes on shared libraries](#notes-on-shared-libraries)
     - [Notes on random number generation](#notes-on-random-number-generation)
 
 
@@ -370,8 +375,8 @@ For 32bit Windows applications on Windows 64bit (WOW64), always replace
 
 The top of the installation directory tree.  Defaults are:
 
-    Unix:           /usr/local                  
-    Windows:        C:\Program Files\OpenSSL        
+    Unix:           /usr/local
+    Windows:        C:\Program Files\OpenSSL
     OpenVMS:        SYS$COMMON:[OPENSSL-'version']
 
 
@@ -399,7 +404,7 @@ already on the system include path.
 ### with-zlib-lib ###
 
     --with-zlib-lib=LIB
- 
+
 **On Unix**: this is the directory containing the zlib library.
 If not provided the system library path will be used.
 
@@ -509,7 +514,7 @@ option.
 
 Do not use assembler code.
 
-This should be viewed as debugging/trouble-shooting option rather than for
+This should be viewed as debugging/troubleshooting option rather than for
 productive use.  On some platforms a small amount of assembler code may still
 be used even with this option.
 
@@ -899,7 +904,7 @@ accompanied by a corresponding compiler-specific option.
 ### no-{protocol} ###
 
     no-{ssl|ssl3|tls|tls1|tls1_1|tls1_2|tls1_3|dtls|dtls1|dtls1_2}
-    
+
 Don't build support for negotiating the specified SSL/TLS protocol.
 
 If "no-tls" is selected then all of tls1, tls1_1, tls1_2 and tls1_3 are disabled.
@@ -1048,7 +1053,7 @@ compiler are in the same "family".  This becomes relevant with
 ### Reconfigure ###
 
     reconf
-	reconfigure
+    reconfigure
 
 Reconfigure from earlier data.
 
@@ -1211,34 +1216,8 @@ Unix, corresponding on other platforms) and the OpenSSL binary
 ("openssl").  The libraries will be built in the top-level directory,
 and the binary will be in the "apps" subdirectory.
 
-Troubleshooting:
-
-If the build fails, look at the output.  There may be reasons
-for the failure that aren't problems in OpenSSL itself (like
-missing standard headers).
-
-If the build succeeded previously, but fails after a source or
-configuration change, it might be helpful to clean the build tree
-before attempting another build.  Use this command:
-
-    $ make clean                                     # Unix
-    $ mms clean                                      ! (or mmk) OpenVMS
-    $ nmake clean                                    # Windows
-
-Assembler error messages can sometimes be sidestepped by using the
-"no-asm" configuration option.
-
-Compiling parts of OpenSSL with gcc and others with the system
-compiler will result in unresolved symbols on some systems.
-
-If you are still having problems you can get help by sending an email
-to the openssl-users email list (see
-https://www.openssl.org/community/mailinglists.html for details).  If
-it is a bug with OpenSSL itself, please open an issue on GitHub, at
-https://github.com/openssl/openssl/issues.  Please review the existing
-ones first; maybe the bug was already reported or has already been
-fixed.
-
+If the build fails, take a look at the [Build Failures](#build-failures)
+subsection of the [Troubleshooting](#troubleshooting) section.
 
 Test OpenSSL
 ------------
@@ -1253,53 +1232,8 @@ be tested.  Run:
 **Warning:** you MUST run the tests from an unprivileged account (or disable
 your privileges temporarily if your platform allows it).
 
-If some tests fail, look at the output.  There may be reasons for
-the failure that isn't a problem in OpenSSL itself (like a
-malfunction with Perl).  You may want increased verbosity, that
-can be accomplished like this:
-
-Verbosity on failure only (make macro VERBOSE_FAILURE or VF):
-
-    $ make VF=1 test                                 # Unix
-    $ mms /macro=(VF=1) test                         ! OpenVMS
-    $ nmake VF=1 test                                # Windows
-
-Full verbosity (make macro VERBOSE or V):
-
-    $ make V=1 test                                  # Unix
-    $ mms /macro=(V=1) test                          ! OpenVMS
-    $ nmake V=1 test                                 # Windows
-
-If you want to run just one or a few specific tests, you can use
-the make variable TESTS to specify them, like this:
-
-    $ make TESTS='test_rsa test_dsa' test            # Unix
-    $ mms/macro="TESTS=test_rsa test_dsa" test       ! OpenVMS
-    $ nmake TESTS='test_rsa test_dsa' test           # Windows
-
-And of course, you can combine (Unix example shown):
-
-    $ make VF=1 TESTS='test_rsa test_dsa' test
-
-You can find the list of available tests like this:
-
-    $ make list-tests                                # Unix
-    $ mms list-tests                                 ! OpenVMS
-    $ nmake list-tests                               # Windows
-
-Have a look at the manual for the perl module Test::Harness to
-see what other HARNESS_* variables there are.
-
-If you find a problem with OpenSSL itself, try removing any
-compiler optimization flags from the CFLAGS line in Makefile and
-run "make clean; make" or corresponding.
-
-To report a bug please open an issue on GitHub, at
-https://github.com/openssl/openssl/issues.
-
-For more details on how the make variables TESTS can be used,
-see section [Running Selected Tests](#running-selected-tests)
-below.
+If some tests fail, take a look at the [Test Failures](#test-failures)
+subsection of the [Troubleshooting](#troubleshooting) section.
 
 
 Install OpenSSL
@@ -1423,28 +1357,28 @@ platforms.
 
     AR
                    The name of the ar executable to use.
-    
+
     BUILDFILE
                    Use a different build file name than the platform default
                    ("Makefile" on Unix-like platforms, "makefile" on native Windows,
                    "descrip.mms" on OpenVMS).  This requires that there is a
                    corresponding build file template.  See Configurations/README
                    for further information.
-    
+
     CC
                    The compiler to use. Configure will attempt to pick a default
                    compiler for your platform but this choice can be overridden
                    using this variable. Set it to the compiler executable you wish
                    to use, e.g. "gcc" or "clang".
-    
+
     CROSS_COMPILE
                    This environment variable has the same meaning as for the
                    "--cross-compile-prefix" Configure flag described above. If both
                    are set then the Configure flag takes precedence.
-    
+
     NM
                    The name of the nm executable to use.
-    
+
     OPENSSL_LOCAL_CONFIG_DIR
                    OpenSSL comes with a database of information about how it
                    should be built on different platforms as well as build file
@@ -1460,30 +1394,30 @@ platforms.
                    variable can be set to the directory where these files are held
                    and will be considered by Configure before it looks in the
                    standard directories.
-    
+
     PERL
                    The name of the Perl executable to use when building OpenSSL.
                    This variable is used in config script only. Configure on the
                    other hand imposes the interpreter by which it itself was
                    executed on the whole build procedure.
-    
+
     HASHBANGPERL
                    The command string for the Perl executable to insert in the
                    #! line of perl scripts that will be publicly installed.
                    Default: /usr/bin/env perl
                    Note: the value of this variable is added to the same scripts
                    on all platforms, but it's only relevant on Unix-like platforms.
-    
+
     RC
                    The name of the rc executable to use. The default will be as
                    defined for the target platform in the ".conf" file. If not
                    defined then "windres" will be used. The WINDRES environment
                    variable is synonymous to this. If both are defined then RC
                    takes precedence.
-    
+
     RANLIB
                    The name of the ranlib executable to use.
-    
+
     WINDRES
                    See RC.
 
@@ -1499,51 +1433,51 @@ described here.  Examine the Makefiles themselves for the full list.
     all
                    The target to build all the software components and
                    documentation.
-    
+
     build_sw
                    Build all the software components.
                    THIS IS THE DEFAULT TARGET.
-    
+
     build_docs
                    Build all documentation components.
-    
+
     clean
                    Remove all build artefacts and return the directory to a "clean"
                    state.
-    
+
     depend
                    Rebuild the dependencies in the Makefiles. This is a legacy
                    option that no longer needs to be used since OpenSSL 1.1.0.
-    
+
     install
                    Install all OpenSSL components.
-    
+
     install_sw
                    Only install the OpenSSL software components.
-    
+
     install_docs
                    Only install the OpenSSL documentation components.
-    
+
     install_man_docs
                    Only install the OpenSSL man pages (Unix only).
-    
+
     install_html_docs
                    Only install the OpenSSL html documentation.
-    
+
     list-tests
                    Prints a list of all the self test names.
-    
+
     test
                    Build and run the OpenSSL self tests.
-    
+
     uninstall
                    Uninstall all OpenSSL components.
-    
+
     reconfigure
     reconf
                    Re-run the configuration process, as exactly as the last time
                    as possible.
-    
+
     update
                    This is a developer option. If you are developing a patch for
                    OpenSSL you may need to use this if you want to update
@@ -1575,7 +1509,7 @@ set of tests" in mind, initially being empty, here are the possible tokens:
                    tests is first assigned the whole set of available tests,
                    effectively making this token equivalent to
                    TESTS="alltests -xxx".
-    
+
 Also, all tokens except for "alltests" may have wildcards, such as *.
 (on Unix and Windows, BSD style wildcards are supported, while on VMS,
 it's VMS style wildcards)
@@ -1611,6 +1545,162 @@ To stochastically verify that the algorithm that produces uniformly distributed
 random numbers is operating correctly (with a false positive rate of 0.01%):
 
     $ ./util/shlib_wrap.sh test/bntest -stochastic
+
+Troubleshooting
+===============
+
+Configuration Problems
+----------------------
+
+### Selecting the correct target ###
+
+The `./config` script tries hard to guess your operating system, but in some
+cases it does not succeed. You will see a message like the following:
+
+    $ ./config
+    Operating system: x86-whatever-minix
+    This system (minix) is not supported. See file INSTALL for details.
+
+Even if the automatic target selection by the `./config` script fails, chances
+are that you still might find a suitable target in the Configurations directory,
+which you can supply to the `./Configure` command, possibly after some adjustment.
+
+The Configurations directory contains a lot of examples of such targets.
+The main configuration file is [10-main.conf][], which contains all targets that
+are officially supported by the OpenSSL team. Other configuration files contain
+targets contributed by other OpenSSL users. The list of targets can be found in
+a Perl list `my %targets = ( ... )`.
+
+    my %targets = (
+    ...
+    "target-name" => {
+        inherit_from     => [ "base-target" ],
+        CC               => "...",
+        cflags           => add("..."),
+        asm_arch         => '...',
+        perlasm_scheme   => "...",
+    },
+    ...
+    )
+
+If you call `.\Configure` without arguments, it will give you a list of all
+known targets. Using `grep`, you can lookup the target definition in the
+Configurations directory. For example the "android-x86_64" can be found in
+Configurations/15-android.conf.
+
+The directory contains two README files, which explain the general syntax and
+design of the configurations files.
+
+ - [Configurations/README](Configurations/README)
+ - [Configurations/README.design](Configurations/README.design)
+
+If you need further help, try to search the [openssl-users][] mailing list
+or the [GitHub Issues][] for existing solutions. If you don't find anything,
+you can [raise an issue][] to ask a question yourself.
+
+More about our support resources can be found in the [SUPPORT][] file.
+
+### Configuration Errors ###
+
+If the `./config` or `./Configure`  command fails with an error message,
+read the error message carefully and try to figure out whether you made
+a mistake (e.g., by providing a wrong option), or whether the script is
+working incorrectly. If you think you encountered a bug, please
+[raise an issue][] on GitHub to file a bug report.
+
+Along with a short description of the bug, please provide the complete
+configure command line and the relevant output including the error message.
+
+Note: To make the output readable, pleace add a 'code fence' (three backquotes
+` ``` ` on a separate line) before and after your output:
+
+     ```
+     $ ./Configure [your arguments...]
+
+     [output...]
+
+     ```
+
+
+Build Failures
+--------------
+
+If the build fails, look carefully at the output. Try to locate and understand
+the error message. It might be that the compiler is already telling you
+exactly what you need to do to fix your problem.
+
+There may be reasons for the failure that aren't problems in OpenSSL itself,
+for example if the compiler reports missing standard or third party headers.
+
+If the build succeeded previously, but fails after a source or configuration
+change, it might be helpful to clean the build tree before attempting another
+build.  Use this command:
+
+    $ make clean                                     # Unix
+    $ mms clean                                      ! (or mmk) OpenVMS
+    $ nmake clean                                    # Windows
+
+Assembler error messages can sometimes be sidestepped by using the
+"no-asm" configuration option.
+
+Compiling parts of OpenSSL with gcc and others with the system compiler will
+result in unresolved symbols on some systems.
+
+If you are still having problems, try to search the [openssl-users][] mailing
+list or the [GitHub Issues][] for existing solutions. If you think you
+encountered an OpenSSL bug, please [raise an issue][] to file a bug report.
+Please take the time to review the existing issues first; maybe the bug was
+already reported or has already been fixed.
+
+
+Test Failures
+-------------
+
+If some tests fail, look at the output.  There may be reasons for the failure
+that isn't a problem in OpenSSL itself (like a malfunction with Perl).
+You may want increased verbosity, that can be accomplished like this:
+
+Verbosity on failure only (make macro VERBOSE_FAILURE or VF):
+
+    $ make VF=1 test                                 # Unix
+    $ mms /macro=(VF=1) test                         ! OpenVMS
+    $ nmake VF=1 test                                # Windows
+
+Full verbosity (make macro VERBOSE or V):
+
+    $ make V=1 test                                  # Unix
+    $ mms /macro=(V=1) test                          ! OpenVMS
+    $ nmake V=1 test                                 # Windows
+
+If you want to run just one or a few specific tests, you can use
+the make variable TESTS to specify them, like this:
+
+    $ make TESTS='test_rsa test_dsa' test            # Unix
+    $ mms/macro="TESTS=test_rsa test_dsa" test       ! OpenVMS
+    $ nmake TESTS='test_rsa test_dsa' test           # Windows
+
+And of course, you can combine (Unix example shown):
+
+    $ make VF=1 TESTS='test_rsa test_dsa' test
+
+You can find the list of available tests like this:
+
+    $ make list-tests                                # Unix
+    $ mms list-tests                                 ! OpenVMS
+    $ nmake list-tests                               # Windows
+
+Have a look at the manual for the perl module Test::Harness to
+see what other HARNESS_* variables there are.
+
+If you find a problem with OpenSSL itself, try removing any
+compiler optimization flags from the CFLAGS line in Makefile and
+run "make clean; make" or corresponding.
+
+To report a bug please open an issue on GitHub, at
+https://github.com/openssl/openssl/issues.
+
+For more details on how the make variables TESTS can be used,
+see section [Running Selected Tests](#running-selected-tests) below.
 
 
 Notes
@@ -1696,3 +1786,26 @@ and reseeding is disabled (--with-rand-seed=none) and it may be necessary
 to install additional support software to obtain a random seed and reseed
 the CSPRNG manually.  Please check out the manual pages for RAND_add(),
 RAND_bytes(), RAND_egd(), and the FAQ for more information.
+
+
+<!-- Links  -->
+
+
+[openssl-users]:
+    https://mta.openssl.org/mailman/listinfo/openssl-users
+
+[SUPPORT]:
+    ./SUPPORT.md
+
+[GitHub Issues]:
+    https://github.com/openssl/openssl/issues
+
+[raise an issue]:
+    https://github.com/openssl/openssl/issues/new/choose
+
+[10-main.conf]:
+    Configurations/10-main.conf
+
+
+[Configurations/15-android.conf:259:]:
+    https://github.com/openssl/openssl/blob/e35e8e3fd2b33c937bdc029bfa6e1abbf59d8ce5/Configurations/15-android.conf#L259
