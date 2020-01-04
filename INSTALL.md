@@ -1790,7 +1790,6 @@ RAND_bytes(), RAND_egd(), and the FAQ for more information.
 
 <!-- Links  -->
 
-
 [openssl-users]:
     https://mta.openssl.org/mailman/listinfo/openssl-users
 
@@ -1805,7 +1804,3 @@ RAND_bytes(), RAND_egd(), and the FAQ for more information.
 
 [10-main.conf]:
     Configurations/10-main.conf
-
-
-[Configurations/15-android.conf:259:]:
-    https://github.com/openssl/openssl/blob/e35e8e3fd2b33c937bdc029bfa6e1abbf59d8ce5/Configurations/15-android.conf#L259
