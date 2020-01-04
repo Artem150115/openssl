@@ -39,8 +39,6 @@ The OpenSSL toolkit includes:
 
 - **libssl**
   an implementation of all TLS protocol versions up to TLSv1.3 ([RFC 8446][]).
-  The older and now insecure SSL protocol versions (SSLv2 and SSLv3) are still
-  supported but disabled by default.
 
 - **libcrypto**
   a full-strength general purpose cryptographic library. It constitutes the
