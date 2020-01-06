@@ -11,6 +11,7 @@
 # Verify options
 $OpenSSL::safe::opt_v_synopsis = ""
 . "[B<-attime> I<timestamp>]\n"
+. "[B<no_check_time]\n"
 . "[B<-check_ss_sig>]\n"
 . "[B<-crl_check>]\n"
 . "[B<-crl_check_all>]\n"
@@ -39,7 +40,7 @@ $OpenSSL::safe::opt_v_synopsis = ""
 . "[B<-x509_strict>]\n"
 . "[B<-certfile> I<file>]";
 $OpenSSL::safe::opt_v_item = ""
-. "=item B<-attime>, B<-check_ss_sig>, B<-crl_check>, B<-crl_check_all>,\n"
+. "=item B<-attime>, B<-no_check_time> B<-check_ss_sig>, B<-crl_check>, B<-crl_check_all>,\n"
 . "B<-explicit_policy>, B<-extended_crl>, B<-ignore_critical>, B<-inhibit_any>,\n"
 . "B<-inhibit_map>, B<-no_alt_chains>, B<-partial_chain>, B<-policy>,\n"
 . "B<-policy_check>, B<-policy_print>, B<-purpose>, B<-suiteB_128>,\n"
