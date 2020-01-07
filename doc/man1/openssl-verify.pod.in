@@ -47,10 +47,6 @@ current system time. I<timestamp> is the number of seconds since
 Verify the signature on the self-signed root CA. This is disabled by default
 because it doesn't add any security.
 
-=item B<-CAfile> I<file>, B<-no-CAfile>, B<-CApath> I<dir>, B<-no-CApath>
-
-See L<openssl(1)/Trusted Certificate Options> for more information.
-
 =item B<-CRLfile> I<file>
 
 The I<file> should contain one or more CRLs in PEM format.
@@ -87,8 +83,6 @@ Specify a binary ID string to use when signing or verifying using an SM2
 certificate. The argument for this option is string of hexadecimal digits.
 
 {- $OpenSSL::safe::opt_name_item -}
-
-{- $OpenSSL::safe::opt_trust_item -}
 
 {- $OpenSSL::safe::opt_engine_item -}
 To load certificates or CRLs that require engine support, specify the
