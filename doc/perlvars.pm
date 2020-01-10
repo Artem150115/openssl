@@ -11,7 +11,7 @@
 # Verify options
 $OpenSSL::safe::opt_v_synopsis = ""
 . "[B<-attime> I<timestamp>]\n"
-. "[B<no_check_time]\n"
+. "[B<-no_check_time>]\n"
 . "[B<-check_ss_sig>]\n"
 . "[B<-crl_check>]\n"
 . "[B<-crl_check_all>]\n"
