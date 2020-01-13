@@ -11,6 +11,12 @@ B<openssl> B<verify>
 [B<-help>]
 [B<-CRLfile> I<file>]
 [B<-crl_download>]
+[B<-show_chain>]
+[B<-sm2-id>]
+[B<-sm2-hex-id>]
+[B<-verbose>]
+[B<-trusted] I<file>]
+[B<-untrusted] I<file>]
 {- $OpenSSL::safe::opt_name_synopsis -}
 {- $OpenSSL::safe::opt_trust_synopsis -}
 {- $OpenSSL::safe::opt_engine_synopsis -}
@@ -32,21 +38,6 @@ This command verifies certificate chains.
 
 Print out a usage message.
 
-=item B<-allow_proxy_certs>
-
-Allow the verification of proxy certificates.
-
-=item B<-attime> I<timestamp>
-
-Perform validation checks using time specified by I<timestamp> and not
-current system time. I<timestamp> is the number of seconds since
-01.01.1970 (UNIX time).
-
-=item B<-check_ss_sig>
-
-Verify the signature on the self-signed root CA. This is disabled by default
-because it doesn't add any security.
-
 =item B<-CRLfile> I<file>
 
 The I<file> should contain one or more CRLs in PEM format.
@@ -56,15 +47,6 @@ I<file>s.
 =item B<-crl_download>
 
 Attempt to download CRL information for this certificate.
-
-=item B<-engine> I<id>
-
-Specifying an engine I<id> will cause this command to attempt to load the
-specified engine.
-The engine will then be set as the default for all its supported algorithms.
-If you want to load certificates or CRLs that require engine support via any of
-the B<-trusted>, B<-untrusted> or B<-CRLfile> options, the B<-engine> option
-must be specified before those options.
 
 =item B<-show_chain>
 
@@ -81,6 +63,18 @@ required by the SM2 signature algorithm for signing and verification.
 
 Specify a binary ID string to use when signing or verifying using an SM2
 certificate. The argument for this option is string of hexadecimal digits.
+
+=item B<-verbose>
+
+Print extra information about the operations being performed.
+
+=item B<-trusted> I<file>
+
+A file of trusted certificates.
+
+=item B<-untrusted> I<file>
+
+A file of untrusted certificates.
 
 {- $OpenSSL::safe::opt_name_item -}
 

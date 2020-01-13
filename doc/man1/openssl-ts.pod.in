@@ -33,6 +33,7 @@ B<-reply>
 [B<-chain> I<certs_file.pem>]
 [B<-tspolicy> I<object_id>]
 [B<-in> I<response.tsr>]
+[B<-untrusted> I<file>]
 [B<-token_in>]
 [B<-out> I<response.tsr>]
 [B<-token_out>]
@@ -310,7 +311,7 @@ This flag can be used together with the B<-in> option and indicates
 that the input is a DER encoded timestamp token (ContentInfo) instead
 of a timestamp response (TimeStampResp). (Optional)
 
-=item B<-untrusted> I<cert_file.pem>
+=item B<-untrusted> I<file>
 
 Set of additional untrusted certificates in PEM format which may be
 needed when building the certificate chain for the TSA's signing
