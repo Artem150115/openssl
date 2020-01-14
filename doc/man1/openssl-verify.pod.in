@@ -15,8 +15,8 @@ B<openssl> B<verify>
 [B<-sm2-id>]
 [B<-sm2-hex-id>]
 [B<-verbose>]
-[B<-trusted] I<file>]
-[B<-untrusted] I<file>]
+[B<-trusted> I<file>]
+[B<-untrusted> I<file>]
 {- $OpenSSL::safe::opt_name_synopsis -}
 {- $OpenSSL::safe::opt_trust_synopsis -}
 {- $OpenSSL::safe::opt_engine_synopsis -}
