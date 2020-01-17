@@ -82,12 +82,6 @@ be loaded by calling the get_dsaXXX() function.
 This option will generate a DSA either using the specified or generated
 parameters.
 
-=item B<-engine> I<id>
-
-Specifying an engine (by its unique I<id> string) will cause this command
-to attempt to obtain a functional reference to the specified engine,
-thus initialising it if needed. The engine will then be set as the default
-for all available algorithms.
 
 =item B<-verbose>
 
@@ -96,6 +90,10 @@ Print extra details about the operations being performed.
 =item B<-rand> I<files>, B<-writerand> I<file>
 
 See L<openssl(1)/Random State Options> for details.
+
+=item B<-engine> I<id>
+
+See L<openssl(1)/Engine Options>.
 
 =item I<numbits>
 

@@ -26,6 +26,7 @@ B<openssl> B<pkcs12>
 [B<-clcerts>]
 [B<-des> B<-des3> B<-idea> B<-aes128> B<-aes192> B<-aes256> B<-aria128> B<-aria192> B<-aria256> B<-camellia128> B<-camellia192> B<-camellia256> B<-nodes>]
 [B<-descert>]
+[B<-engine> I<id>]
 [B<-export>]
 [B<-help>]
 [B<-in> I<filename>]
@@ -287,6 +288,10 @@ See L<openssl(1)/Trusted Certificate Options> for details.
 =item B<-rand> I<files>, B<-writerand> I<file>
 
 See L<openssl(1)/Random State Options> for details.
+
+=item B<-engine> I<id>
+
+See L<openssl(1)/Engine Options>.
 
 =back
 

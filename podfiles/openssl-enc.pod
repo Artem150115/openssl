@@ -201,6 +201,10 @@ Use NULL cipher (no encryption or decryption of input).
 
 See L<openssl(1)/Random State Options> for details.
 
+=item B<-engine> I<id>
+
+See L<openssl(1)/Engine Options>.
+
 =back
 
 =head1 NOTES
@@ -213,8 +217,8 @@ Use the L<openssl-list(1)> command to get a list of supported ciphers.
 
 Engines which provide entirely new encryption algorithms (such as the ccgost
 engine which provides gost89 algorithm) should be configured in the
-configuration file. Engines specified on the command line using -engine
-options can only be used for hardware-assisted implementations of
+configuration file. Engines specified on the command line using B<-engine>
+option can only be used for hardware-assisted implementations of
 ciphers which are supported by the OpenSSL core or another engine specified
 in the configuration file.
 

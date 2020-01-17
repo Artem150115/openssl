@@ -29,6 +29,11 @@ B<openssl> B<s_time>
 [B<-no-CAfile>]
 [B<-no-CApath>]
 [B<-no-CAstore>]
+[B<-no_ssl3>]
+[B<-no_tls1>]
+[B<-no_tls1_1>]
+[B<-no_tls1_2>]
+[B<-no_tls1_3>]
 [B<-reuse>]
 [B<-ssl3>]
 [B<-time> I<seconds>]
@@ -87,12 +92,6 @@ Currently the verify operation continues after errors so all the problems
 with a certificate chain can be seen. As a side effect the connection
 will never fail due to a server certificate verify failure.
 
-=item B<-CApath> I<directory>
-
-The directory to use for server certificate verification. This directory
-must be in "hash format", see L<openssl-verify(1)> for more information.
-These are also used when building the client certificate chain.
-
 =item B<-new>
 
 Performs the timing test using a new session ID for each connection.
@@ -104,15 +103,6 @@ and executed in sequence.
 Performs the timing test using the same session ID; this can be used as a test
 that session caching is working. If neither B<-new> nor B<-reuse> are
 specified, they are both on by default and executed in sequence.
-
-=item B<-ssl3>, B<-tls1>, B<-tls1_1>, B<-tls1_2>, B<-tls1_3>
-
-These options enable specific SSL or TLS protocol versions for the handshake
-initiated by this command.
-By default, it negotiates the highest mutually supported protocol
-version.
-Note that not all protocols and flags may be available, depending on how
-OpenSSL was built.
 
 =item B<-bugs>
 
@@ -152,6 +142,11 @@ See L<openssl(1)/Name Format Options> for details.
 B<-CAstore> I<uri>, B<-no-CAstore>
 
 See L<openssl(1)/Trusted Certificate Options> for details.
+
+=item B<-no_ssl3>, B<-no_tls1>, B<-no_tls1_1>, B<-no_tls1_2>, B<-no_tls1_3>,
+B<-ssl3>, B<-tls1>, B<-tls1_1>, B<-tls1_2>, B<-tls1_3>
+
+See L<openssl(1)/TLS Version Options>.
 
 =back
 

@@ -45,32 +45,30 @@ B<-reply>
 [B<-token_in>]
 [B<-token_out>]
 [B<-tspolicy> I<object_id>]
+[B<-untrusted> I<file>]
 
 B<openssl> B<ts>
 B<-verify>
-[B<-CAfile> I<trusted_certs.pem>]
-[B<-CApath> I<trusted_cert_path>]
-[B<-CAstore> I<trusted_certs_uri>]
-[B<-data> I<file_to_hash>]
-[B<-digest> I<digest_bytes>]
-[B<-in> I<response.tsr>]
-[B<-queryfile> I<request.tsq>]
-[B<-token_in>]
-[B<-untrusted> I<cert_file.pem>]
-[I<verify options>]
-
-I<verify options:>
+[B<-CAfile> I<file>]
+[B<-CApath> I<dir>]
+[B<-CAstore> I<uri>]
+[B<-allow_proxy_certs>]
 [B<-attime> I<timestamp>]
 [B<-auth_level> I<num>]
 [B<-check_ss_sig>]
 [B<-crl_check>]
 [B<-crl_check_all>]
+[B<-data> I<file_to_hash>]
+[B<-digest> I<digest_bytes>]
 [B<-explicit_policy>]
 [B<-extended_crl>]
 [B<-ignore_critical>]
+[B<-in> I<response.tsr>]
 [B<-inhibit_any>]
 [B<-inhibit_map>]
-[B<-issuer_checks>]
+[B<-no-CAfile>]
+[B<-no-CApath>]
+[B<-no-CAstore>]
 [B<-no_alt_chains>]
 [B<-no_check_time>]
 [B<-partial_chain>]
@@ -78,9 +76,11 @@ I<verify options:>
 [B<-policy_check>]
 [B<-policy_print>]
 [B<-purpose> I<purpose>]
+[B<-queryfile> I<request.tsq>]
 [B<-suiteB_128>]
 [B<-suiteB_128_only>]
 [B<-suiteB_192>]
+[B<-token_in>]
 [B<-trusted_first>]
 [B<-use_deltas>]
 [B<-verify_depth> I<num>]
@@ -314,10 +314,7 @@ instead of DER. (Optional)
 
 =item B<-engine> I<id>
 
-Specifying an engine (by its unique I<id> string) will cause this command
-to attempt to obtain a functional reference to the specified engine,
-thus initialising it if needed. The engine will then be set as the default
-for all available algorithms. Default is built-in. (Optional)
+See L<openssl(1)/Engine Options>.
 
 =back
 
@@ -358,13 +355,7 @@ This flag can be used together with the B<-in> option and indicates
 that the input is a DER encoded timestamp token (ContentInfo) instead
 of a timestamp response (TimeStampResp). (Optional)
 
-=item B<-CAfile> I<file>, B<-CApath> I<dir>, B<-CAstore> I<uri>
-
-See L<openssl(1)/Trusted Certificate Options> for more information.
-
-At least one of B<-CApath>, B<-CAfile> or B<-CAstore> must be specified.
-
-=item B<-untrusted> I<cert_file.pem>
+=item B<-untrusted> I<file>
 
 Set of additional untrusted certificates in PEM format which may be
 needed when building the certificate chain for the TSA's signing
@@ -372,17 +363,26 @@ certificate. This file must contain the TSA signing certificate and
 all intermediate CA certificates unless the response includes them.
 (Optional)
 
-=item I<verify options>
+=item B<-CAfile> I<file>, B<-no-CAfile>, B<-CApath> I<dir>, B<-no-CApath>,
+B<-CAstore> I<uri>, B<-no-CAstore>
 
-The options B<-attime>, B<-check_ss_sig>, B<-crl_check>,
-B<-crl_check_all>, B<-explicit_policy>, B<-extended_crl>, B<-ignore_critical>,
-B<-inhibit_any>, B<-inhibit_map>, B<-issuer_checks>, B<-no_alt_chains>,
-B<-no_check_time>, B<-partial_chain>, B<-policy>, B<-policy_check>,
-B<-policy_print>, B<-purpose>, B<-suiteB_128>, B<-suiteB_128_only>,
-B<-suiteB_192>, B<-trusted_first>, B<-use_deltas>, B<-auth_level>,
-B<-verify_depth>, B<-verify_email>, B<-verify_hostname>, B<-verify_ip>,
-B<-verify_name>, and B<-x509_strict> can be used to control timestamp
-verification.  See L<openssl-verify(1)>.
+See L<openssl(1)/Trusted Certificate Options> for details.
+
+At least one of B<-CApath>, B<-CAfile> or B<-CAstore> must be specified.
+
+=item B<-allow_proxy_certs>, B<-attime>, B<-no_check_time>,
+B<-check_ss_sig>, B<-crl_check>, B<-crl_check_all>,
+B<-explicit_policy>, B<-extended_crl>, B<-ignore_critical>, B<-inhibit_any>,
+B<-inhibit_map>, B<-no_alt_chains>, B<-partial_chain>, B<-policy>,
+B<-policy_check>, B<-policy_print>, B<-purpose>, B<-suiteB_128>,
+B<-suiteB_128_only>, B<-suiteB_192>, B<-trusted_first>, B<-use_deltas>,
+B<-auth_level>, B<-verify_depth>, B<-verify_email>, B<-verify_hostname>,
+B<-verify_ip>, B<-verify_name>, B<-x509_strict>
+
+Set various options of certificate chain verification.
+See L<openssl(1)/Verification Options> for details.
+
+Any verification errors cause the command to exit.
 
 =back
 

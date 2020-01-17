@@ -142,13 +142,6 @@ This option indicates a PKCS#5 v1.5 or PKCS#12 algorithm should be used.  Some
 older implementations may not support PKCS#5 v2.0 and may require this option.
 If not specified PKCS#5 v2.0 form is used.
 
-=item B<-engine> I<id>
-
-Specifying an engine (by its unique I<id> string) will cause this command
-to attempt to obtain a functional reference to the specified engine,
-thus initialising it if needed. The engine will then be set as the default
-for all available algorithms.
-
 =item B<-scrypt>
 
 Uses the B<scrypt> algorithm for private key encryption using default
@@ -163,6 +156,10 @@ Sets the scrypt I<N>, I<r> or I<p> parameters.
 =item B<-rand> I<files>, B<-writerand> I<file>
 
 See L<openssl(1)/Random State Options> for details.
+
+=item B<-engine> I<id>
+
+See L<openssl(1)/Engine Options>.
 
 =back
 

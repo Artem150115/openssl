@@ -72,13 +72,6 @@ for if it is not supplied via the B<-passout> argument.
 
 The public exponent to use, either 65537 or 3. The default is 65537.
 
-=item B<-engine> I<id>
-
-Specifying an engine (by its unique I<id> string) will cause this command
-to attempt to obtain a functional reference to the specified engine,
-thus initialising it if needed. The engine will then be set as the default
-for all available algorithms.
-
 =item B<-primes> I<num>
 
 Specify the number of primes to use while generating the RSA key. The I<num>
@@ -93,6 +86,10 @@ Print extra details about the operations being performed.
 =item B<-rand> I<files>, B<-writerand> I<file>
 
 See L<openssl(1)/Random State Options> for details.
+
+=item B<-engine> I<id>
+
+See L<openssl(1)/Engine Options>.
 
 =item B<numbits>
 

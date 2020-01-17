@@ -21,6 +21,7 @@ B<openssl> B<s_client>
 [B<-CAstore> I<uri>]
 [B<-CRLform> B<DER>|B<PEM>]
 [B<-allow_no_dhe_kex>]
+[B<-allow_proxy_certs>]
 [B<-alpn> I<protocols>]
 [B<-async>]
 [B<-attime> I<timestamp>]
@@ -376,17 +377,6 @@ records already make it possible for a remote domain to redirect client
 connections to any server of its choice, and in any case SMTP and XMPP clients
 do not execute scripts downloaded from remote servers.
 
-=item B<-attime>, B<-check_ss_sig>, B<-crl_check>, B<-crl_check_all>,
-B<-explicit_policy>, B<-extended_crl>, B<-ignore_critical>, B<-inhibit_any>,
-B<-inhibit_map>, B<-no_alt_chains>, B<-no_check_time>, B<-partial_chain>, B<-policy>,
-B<-policy_check>, B<-policy_print>, B<-purpose>, B<-suiteB_128>,
-B<-suiteB_128_only>, B<-suiteB_192>, B<-trusted_first>, B<-use_deltas>,
-B<-auth_level>, B<-verify_depth>, B<-verify_email>, B<-verify_hostname>,
-B<-verify_ip>, B<-verify_name>, B<-x509_strict>
-
-Set various certificate chain validation options. See the
-L<openssl-verify(1)> manual page for details.
-
 =item B<-reconnect>
 
 Reconnects to the same server 5 times using the same session ID, this can
@@ -474,23 +464,6 @@ This option must be provided in order to use a PSK cipher.
 
 Use the pem encoded SSL_SESSION data stored in I<file> as the basis of a PSK.
 Note that this will only work if TLSv1.3 is negotiated.
-
-=item B<-ssl3>, B<-tls1>, B<-tls1_1>, B<-tls1_2>, B<-tls1_3>, B<-no_ssl3>, B<-no_tls1>, B<-no_tls1_1>, B<-no_tls1_2>, B<-no_tls1_3>
-
-These options require or disable the use of the specified SSL or TLS protocols.
-By default, this command will negotiate the highest mutually supported protocol
-version.
-When a specific TLS version is required, only that version will be offered to
-and accepted from the server.
-Note that not all protocols and flags may be available, depending on how
-OpenSSL was built.
-
-=item B<-dtls>, B<-dtls1>, B<-dtls1_2>
-
-These options make this command use DTLS protocols instead of TLS.
-With B<-dtls>, it will negotiate any supported DTLS protocol version,
-whilst B<-dtls1> and B<-dtls1_2> will only support DTLS1.0 and DTLS1.2
-respectively.
 
 =item B<-sctp>
 
@@ -645,13 +618,6 @@ Output SSL session to I<filename>.
 Load SSL session from I<filename>. The client will attempt to resume a
 connection from this session.
 
-=item B<-engine> I<id>
-
-Specifying an engine (by its unique I<id> string) will cause this command
-to attempt to obtain a functional reference to the specified engine,
-thus initialising it if needed. The engine will then be set as the default
-for all available algorithms.
-
 =item B<-serverinfo> I<types>
 
 A list of comma-separated TLS Extension Types (numbers between 0 and
@@ -709,12 +675,16 @@ data and when the server accepts the early data.
 For TLSv1.3 only, send the Post-Handshake Authentication extension. This will
 happen whether or not a certificate has been provided via B<-cert>.
 
-=item I<host>:I<port>
 
-Rather than providing B<-connect>, the target hostname and optional port may
-be provided as a single positional argument after all options. If neither this
-nor B<-connect> are provided, falls back to attempting to connect to
-I<localhost> on port I<4433>.
+=item B<-no_ssl3>, B<-no_tls1>, B<-no_tls1_1>, B<-no_tls1_2>, B<-no_tls1_3>,
+B<-ssl3>, B<-tls1>, B<-tls1_1>, B<-tls1_2>, B<-tls1_3>
+
+See L<openssl(1)/TLS Version Options>.
+
+=item B<-dtls>, B<-dtls1>, B<-dtls1_2>
+
+These specify the use of DTLS instead of TLS.
+See L<openssl(1)/TLS Version Options>.
 
 =item B<-nameopt> I<option>
 
@@ -736,6 +706,32 @@ See L<openssl(1)/Trusted Certificate Options> for details.
 =item B<-rand> I<files>, B<-writerand> I<file>
 
 See L<openssl(1)/Random State Options> for details.
+
+=item B<-engine> I<id>
+
+See L<openssl(1)/Engine Options>.
+
+=item B<-allow_proxy_certs>, B<-attime>, B<-no_check_time>,
+B<-check_ss_sig>, B<-crl_check>, B<-crl_check_all>,
+B<-explicit_policy>, B<-extended_crl>, B<-ignore_critical>, B<-inhibit_any>,
+B<-inhibit_map>, B<-no_alt_chains>, B<-partial_chain>, B<-policy>,
+B<-policy_check>, B<-policy_print>, B<-purpose>, B<-suiteB_128>,
+B<-suiteB_128_only>, B<-suiteB_192>, B<-trusted_first>, B<-use_deltas>,
+B<-auth_level>, B<-verify_depth>, B<-verify_email>, B<-verify_hostname>,
+B<-verify_ip>, B<-verify_name>, B<-x509_strict>
+
+Set various options of certificate chain verification.
+See L<openssl(1)/Verification Options> for details.
+
+Verification errors are displayed, for debugging, but the command will
+proceed unless the B<-verify_return_error> option is used.
+
+=item I<host>:I<port>
+
+Rather than providing B<-connect>, the target hostname and optional port may
+be provided as a single positional argument after all options. If neither this
+nor B<-connect> are provided, falls back to attempting to connect to
+I<localhost> on port I<4433>.
 
 =back
 

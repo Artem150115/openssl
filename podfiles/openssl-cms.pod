@@ -14,17 +14,18 @@ openssl-cms - CMS utility
 =head1 SYNOPSIS
 
 B<openssl> B<cms>
+
 [B<-CAfile> I<file>]
 [B<-CApath> I<dir>]
 [B<-CAstore> I<uri>]
 [B<-EncryptedData_encrypt>]
 [B<-I<cipher>>]
+[B<-allow_proxy_certs>]
 [B<-asciicrlf>]
 [B<-attime> I<timestamp>]
 [B<-auth_level> I<num>]
 [B<-binary>]
 [B<-cades>]
-[B<-certfile> I<file>]
 [B<-certsout> I<file>]
 [B<-check_ss_sig>]
 [B<-cmsout>]
@@ -474,16 +475,19 @@ portion of a message so they may be included manually. If signing
 then many S/MIME mail clients check the signers certificate's email
 address matches that specified in the From: address.
 
-=item B<-attime>, B<-check_ss_sig>, B<-crl_check>, B<-crl_check_all>,
+=item B<-allow_proxy_certs>, B<-attime>, B<-no_check_time>,
+B<-check_ss_sig>, B<-crl_check>, B<-crl_check_all>,
 B<-explicit_policy>, B<-extended_crl>, B<-ignore_critical>, B<-inhibit_any>,
-B<-inhibit_map>, B<-no_alt_chains>, B<-no_check_time>, B<-partial_chain>, B<-policy>,
+B<-inhibit_map>, B<-no_alt_chains>, B<-partial_chain>, B<-policy>,
 B<-policy_check>, B<-policy_print>, B<-purpose>, B<-suiteB_128>,
 B<-suiteB_128_only>, B<-suiteB_192>, B<-trusted_first>, B<-use_deltas>,
 B<-auth_level>, B<-verify_depth>, B<-verify_email>, B<-verify_hostname>,
 B<-verify_ip>, B<-verify_name>, B<-x509_strict>
 
-Set various certificate chain validation options. See the
-L<openssl-verify(1)> manual page for details.
+Set various options of certificate chain verification.
+See L<openssl(1)/Verification Options> for details.
+
+Any verification errors cause the command to exit.
 
 =item B<-CAfile> I<file>, B<-no-CAfile>, B<-CApath> I<dir>, B<-no-CApath>,
 B<-CAstore> I<uri>, B<-no-CAstore>
